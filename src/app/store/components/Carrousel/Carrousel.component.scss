@@ -1,0 +1,19 @@
+:host {
+  display: block;
+}
+#carousel-portada {
+  height: calc(100vh - 200px);
+}
+#carousel-portada .carousel-inner {
+  height: 100%;
+}
+#carousel-portada .carousel-item img {
+  height: calc(100vh - 200px);
+  object-fit: fill;
+}
+
+@media (max-width: 768px) {
+  #carousel-portada {
+    height: auto;
+  }
+}
