@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+<app-carrousel></app-carrousel>
+<div class="container-fluid info-ventas primary-bg-color p-5">
+  <div class="row d-flex justify-content-around align-items-center">
+    <div
+      class="secondary-bg-color col-sm-12 col-md-6 col-lg-3 col p-5 d-flex flex-column align-items-center justify-content-center shadow rounded"
+    >
+      <i class="fa-solid fa-cart-flatbed"></i>
+      <h4 class="mt-3 text-center">Envios a todo el país</h4>
+      <span class="text-center">
+        Llevamos tu pedido a cualquier lugar donde te encuentres.
+      </span>
+    </div>
+    <div
+      class="secondary-bg-color col-sm-12 col-md-6 col-lg-3 col p-5 d-flex flex-column align-items-center justify-content-center shadow rounded"
+    >
+      <i class="fa-regular fa-credit-card"></i>
+      <h4 class="mt-3 text-center">Todos los medios de pago</h4>
+      <span class="text-center"> Protegemos la información de tu compra. </span>
+    </div>
+    <div
+      class="secondary-bg-color col-sm-12 col-md-6 col-lg-3 col p-5 d-flex flex-column align-items-center justify-content-center shadow rounded"
+    >
+      <i class="fa-solid fa-lock"></i>
+      <h4 class="mt-3">Pagos seguros</h4>
+      <span class="text-center">Tarjetas de crédito y débito.</span>
+    </div>
+  </div>
+</div>
+
+<app-category-list></app-category-list>
+
+<app-cart></app-cart>
+
+<app-footer></app-footer>
+
+<app-modal
+  *ngIf="isModalOpen"
+  title=""
+  closeButtonText="Cerrar"
+  confirmButtonText="Confirmar"
+  (close)="onModalClose()"
+  (confirm)="onModalConfirm()"
+>
+  <div
+    class="container d-flex justify-content-center align-items-center flex-column"
+  >
+    <h2 class="m-3 text-center">{{ modalMsg }}</h2>
+  </div>
+</app-modal>
