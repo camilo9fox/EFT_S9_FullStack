@@ -1,0 +1,64 @@
+<app-navbar></app-navbar>
+<div
+  id="profile-panel"
+  class="container-fluid terciary-bg-color d-flex justify-content-center align-items-center"
+>
+  <div class="container border shadow rounded h-75 p-5">
+    <h1>Mi Perfil</h1>
+    <div
+      class="container-fluid h-100 d-flex justify-content-center align-items-center"
+    >
+      <div class="row">
+        <div class="col">
+          <img alt="" src="./assets/img/profile/profile.webp" />
+        </div>
+        <div class="col mt-4">
+          <form id="profile-form" (ngSubmit)="onSubmit()" #profileForm="ngForm">
+            <div class="mb-3 w-100">
+              <label for="input-name" class="form-label">Nombre</label>
+              <input
+                type="text"
+                name="name"
+                class="form-control"
+                id="input-name"
+                [(ngModel)]="user.name"
+                required
+                minlength="3"
+              />
+            </div>
+            <div class="mb-3 w-100">
+              <label for="input-last-name" class="form-label">Apellido</label>
+              <input
+                type="text"
+                name="last_name"
+                class="form-control"
+                id="input-last-name"
+                [(ngModel)]="user.lastName"
+                required
+                minlength="3"
+              />
+            </div>
+            <div class="mb-3 w-100">
+              <label for="input-address" class="form-label">Dirección</label>
+              <input
+                type="text"
+                name="address"
+                class="form-control"
+                id="input-address"
+                [(ngModel)]="user.address"
+                required
+                minlength="10"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">
+              Actualizar perfil
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-cart></app-cart>
+<app-footer></app-footer>
