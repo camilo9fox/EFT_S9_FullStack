@@ -1,0 +1,190 @@
+<div
+  id="login-section"
+  class="d-flex justify-content-center align-items-center"
+>
+  <div class="container border shadow rounded">
+    <div class="row">
+      <div
+        class="col d-flex justify-content-center align-items-center flex-column"
+      >
+        <h3 class="mb-3">Registro de usuario</h3>
+        <form
+          [formGroup]="registerForm"
+          (ngSubmit)="onSubmit()"
+          class="w-75 d-flex flex-column align-items-center"
+        >
+          <div class="mb-3 w-100">
+            <label for="input-nombre" class="form-label">Nombre</label>
+            <input
+              type="text"
+              formControlName="name"
+              class="form-control"
+              id="input-nombre"
+            />
+            <div
+              *ngIf="
+                registerForm.get('name')?.invalid &&
+                registerForm.get('name')?.touched
+              "
+              class="text-danger"
+            >
+              El nombre no debe estar vacío y debe tener un mínimo de 3
+              caracteres.
+            </div>
+          </div>
+          <div class="mb-3 w-100">
+            <label for="input-apellido" class="form-label">Apellido</label>
+            <input
+              type="text"
+              formControlName="lastName"
+              class="form-control"
+              id="input-apellido"
+            />
+            <div
+              *ngIf="
+                registerForm.get('lastName')?.invalid &&
+                registerForm.get('lastName')?.touched
+              "
+              class="text-danger"
+            >
+              El apellido no debe estar vacío y debe tener un mínimo de 3
+              caracteres.
+            </div>
+          </div>
+          <div class="mb-3 w-100">
+            <label for="input-direccion" class="form-label">Dirección</label>
+            <input
+              type="text"
+              formControlName="address"
+              class="form-control"
+              id="input-direccion"
+            />
+            <div
+              *ngIf="
+                registerForm.get('address')?.invalid &&
+                registerForm.get('address')?.touched
+              "
+              class="text-danger"
+            >
+              La dirección no debe estar vacía y debe tener un mínimo de 10
+              caracteres.
+            </div>
+          </div>
+          <div class="mb-3 w-100">
+            <label for="input-email" class="form-label"
+              >Correo electrónico</label
+            >
+            <input
+              type="email"
+              formControlName="email"
+              class="form-control"
+              id="input-email"
+              aria-describedby="emailHelp"
+            />
+            <div
+              *ngIf="
+                registerForm.get('email')?.invalid &&
+                registerForm.get('email')?.touched
+              "
+              class="text-danger"
+            >
+              El correo electrónico no es válido o ya está registrado.
+            </div>
+          </div>
+          <div class="mb-3 w-100">
+            <label for="input-password" class="form-label">Contraseña</label>
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control"
+              id="input-password"
+            />
+            <div
+              *ngIf="
+                registerForm.get('password')?.invalid &&
+                registerForm.get('password')?.touched
+              "
+              class="text-danger"
+            >
+              La contraseña debe tener entre 8 y 20 caracteres, incluir al menos
+              un carácter especial, un número y una letra.
+            </div>
+          </div>
+          <div class="mb-3 w-100">
+            <label for="input-confirm-password" class="form-label"
+              >Confirmar contraseña</label
+            >
+            <input
+              type="password"
+              formControlName="confirmPassword"
+              class="form-control"
+              id="input-confirm-password"
+            />
+            <div
+              *ngIf="
+                registerForm.get('confirmPassword')?.invalid &&
+                registerForm.get('confirmPassword')?.touched
+              "
+              class="text-danger"
+            >
+              Las contraseñas deben coincidir.
+            </div>
+          </div>
+          <p class="text-center">
+            <strong>¿Ya tienes cuenta?</strong>
+            <br />
+            <a href="/login"><strong>Inicia sesión aquí</strong></a> e ingresa a
+            nuestra comunidad de amantes de los libros.
+          </p>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="registerForm.invalid"
+          >
+            Registrarme
+          </button>
+        </form>
+      </div>
+      <div
+        class="col flex-column primary-bg-color d-flex justify-content-center align-items-center"
+      >
+        <img
+          class="shadow"
+          alt="pepe_login"
+          src="./assets/img/login/login.webp"
+        />
+        <p class="terciary-color lead m-5">
+          <strong>Bienvenido a Pepe Librería</strong>
+          <br />
+          Nos alegra que te unas a nuestra comunidad de amantes de los libros.
+          Para brindarte la mejor experiencia, necesitamos algunos datos para
+          crear tu cuenta. Por favor, completa todos los campos del formulario.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modal
+  *ngIf="isModalOpen"
+  title=""
+  closeButtonText="Cerrar"
+  confirmButtonText="Confirmar"
+  (close)="onModalClose()"
+  (confirm)="onModalConfirm()"
+>
+  <div
+    class="container d-flex justify-content-center align-items-center flex-column"
+  >
+    <i
+      style="
+        font-size: 50px;
+        color: green;
+        border: 5px solid green;
+        border-radius: 50%;
+        padding: 5px;
+      "
+      class="fa-solid fa-check"
+    ></i>
+    <h2 class="m-3 text-center">Usuario registrado con exito</h2>
+  </div>
+</app-modal>
