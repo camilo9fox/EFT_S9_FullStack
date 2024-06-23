@@ -1,0 +1,36 @@
+<div class="container-fluid terciary-bg-color p-5">
+  <div class="row">
+    <div
+      class="col d-flex flex-column justify-content-center align-items-center"
+    >
+      <h2>Categorías</h2>
+      <h5 class="text-center">
+        Encuentra libros para todos los gustos y edades.
+      </h5>
+    </div>
+  </div>
+  <div class="container border shadow rounded p-5 mt-5">
+    <div class="row">
+      <div
+        *ngFor="let categoria of categorias"
+        class="col-sm-12 col-md-6 col-lg-4 mt-5 d-flex justify-content-center align-items-center"
+      >
+        <div class="card" style="width: 18rem">
+          <img
+            [src]="categoria.imgSrc"
+            class="card-img-top"
+            alt="{{ categoria.title }}"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ categoria.title }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center align-items-center mt-5">
+      <button class="btn btn-primary" type="button">Ver más</button>
+    </div>
+  </div>
+</div>
