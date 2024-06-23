@@ -1,0 +1,116 @@
+<div
+  id="login-section"
+  class="d-flex justify-content-center align-items-center"
+>
+  <div class="container border shadow rounded">
+    <div class="row">
+      <div
+        class="col d-flex justify-content-center align-items-center flex-column"
+      >
+        <h3 class="mb-3">Iniciar Sesión</h3>
+        <form
+          [formGroup]="loginForm"
+          (ngSubmit)="onSubmit()"
+          class="w-75 d-flex flex-column align-items-center"
+        >
+          <div class="mb-3 w-100">
+            <label for="input-email" class="form-label"
+              >Correo Electrónico</label
+            >
+            <input
+              type="email"
+              formControlName="email"
+              class="form-control"
+              id="input-email"
+            />
+            <div id="emailHelp" class="form-text">
+              No compartas tu email con nadie.
+            </div>
+            <div
+              *ngIf="
+                loginForm.get('email')?.invalid &&
+                loginForm.get('email')?.touched
+              "
+              class="text-danger"
+            >
+              El correo electrónico no es válido.
+            </div>
+          </div>
+          <div class="mb-3 w-100">
+            <label for="input-password" class="form-label">Contraseña</label>
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control"
+              id="input-password"
+            />
+          </div>
+          <div
+            *ngIf="
+              loginForm.get('password')?.invalid &&
+              loginForm.get('password')?.touched
+            "
+            class="text-danger"
+          >
+            Debe ingresar la contraseña.
+          </div>
+          <p class="text-center">
+            <strong>¿Nuevo en Pepe Librería?</strong>
+            <br />
+            <a href="/registro"><strong>Regístrate aquí</strong></a>
+            y únete a nuestra comunidad de amantes de los libros.
+          </p>
+          <button id="btn-login" type="submit" class="btn btn-primary">
+            Ingresar
+          </button>
+          <p class="text-center mt-3">
+            <strong>¿Olvidaste tu contraseña?</strong>
+            <br />
+            <a href="/recuperar-contraseña"><strong>Recupérala aquí</strong></a>
+          </p>
+        </form>
+      </div>
+      <div
+        class="col flex-column primary-bg-color d-flex justify-content-center align-items-center"
+      >
+        <img
+          class="shadow"
+          alt="pepe_login"
+          src="./assets/img/login/login.webp"
+        />
+        <p class="terciary-color lead m-5">
+          <strong>Bienvenido a Pepe Librería</strong>
+          <br />
+          Inicia sesión para acceder a tu cuenta y explorar nuestro vasto
+          catálogo de libros. Disfruta de recomendaciones personalizadas,
+          participa en eventos exclusivos y mantente al día con las últimas
+          novedades literarias. ¡Nos alegra verte de nuevo!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modal
+  *ngIf="isOpenModal"
+  title=""
+  closeButtonText="Cerrar"
+  confirmButtonText="Confirmar"
+  (close)="onModalClose()"
+  (confirm)="onModalConfirm()"
+>
+  <div
+    class="container d-flex justify-content-center align-items-center flex-column"
+  >
+    <i
+      style="
+        font-size: 50px;
+        color: red;
+        border: 5px solid red;
+        border-radius: 50%;
+        padding: 5px;
+      "
+      class="fa-solid fa-xmark"
+    ></i>
+    <h2 class="m-3 text-center">Email o contraseña incorrecto</h2>
+  </div>
+</app-modal>
