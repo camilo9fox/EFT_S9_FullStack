@@ -1,0 +1,47 @@
+<div
+  [ngClass]="{
+    sidenav: true,
+    'sidenav-open': isOpen,
+    'sidenav-closed': !isOpen
+  }"
+>
+  <a href="javascript:void(0)" class="closebtn" (click)="toggleCart()"
+    >&times;</a
+  >
+  <div id="cart-items">
+    <div *ngFor="let item of cart" class="cart-item border">
+      <img [alt]="item.name" [src]="item.image" />
+      <div
+        class="item-detail p-2 d-flex flex-column justify-content-center align-items-center text-center"
+      >
+        <span><strong>Nombre:</strong> {{ item.name }}</span>
+        <span><strong>Autor:</strong> {{ item.author }}</span>
+        <span><strong>Precio:</strong> {{ item.price }}</span>
+        <span><strong>Cantidad:</strong> {{ item.cantidad }}</span>
+      </div>
+      <div class="d-flex justify-content-center align-items-center p-2">
+        <button class="btn btn-danger btn-sm" (click)="removeFromCart(item.id)">
+          &times;
+        </button>
+      </div>
+    </div>
+    <div
+      *ngIf="cart.length === 0"
+      class="d-flex flex-column align-items-center justify-content-center"
+    >
+      <i style="font-size: 50px" class="fa-solid fa-cart-shopping mb-3"></i>
+      <p class="lead"><strong>El carrito esta vacio.</strong></p>
+    </div>
+    <div
+      *ngIf="cart.length > 0"
+      class="d-flex flex-column align-items-center justify-content-center mt-3"
+    >
+      <h3 class="lead">Total: ${{ total }}</h3>
+      <a href="/pedido"
+        ><button class="btn btn-primary" type="button">
+          Finalizar compra
+        </button></a
+      >
+    </div>
+  </div>
+</div>
