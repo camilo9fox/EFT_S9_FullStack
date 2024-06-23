@@ -1,0 +1,83 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img alt="logo" src="./assets/img/Logo.webp" id="logo" />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-center"
+      id="navbarScroll"
+    >
+      <ul
+        class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+        style="--bs-scroll-height: 100px"
+      >
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/"> Inicio </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="nosotros">
+            Nosotros
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="tienda">
+            Tienda
+          </a>
+        </li>
+        <li
+          id="my-profile-item"
+          class="nav-item"
+          [classList]="!isLogged && 'invisible'"
+        >
+          <a
+            id="anchor-my-profile"
+            class="nav-link active"
+            aria-current="page"
+            href="mi-perfil"
+          >
+            Mi Perfil
+          </a>
+        </li>
+      </ul>
+    </div>
+    <form class="d-flex justify-content-center">
+      <a id="anchor-btn-session" [href]="!isLogged ? 'login' : '#'">
+        <button
+          id="btn-session"
+          class="btn btn-outline-success me-2"
+          type="button"
+          (click)="isLogged ? onCloseSession() : ''"
+        >
+          {{ !isLogged ? "Iniciar sesión" : "Cerrar sesión" }}
+        </button>
+      </a>
+      <a>
+        <button
+          id="cart-btn"
+          class="btn btn-sm btn-outline-secondary"
+          type="button"
+          (click)="openCart()"
+        >
+          <i class="fas fa-shopping-cart"></i>
+          <span
+            id="cart-count"
+            class="badge badge-pill badge-danger primary-bg-color"
+          >
+            {{ cartItemCount }}
+          </span>
+        </button>
+      </a>
+    </form>
+  </div>
+</nav>
