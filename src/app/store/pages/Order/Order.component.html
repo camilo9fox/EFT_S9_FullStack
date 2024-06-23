@@ -1,0 +1,248 @@
+<div
+  id="panel-pedido"
+  class="container-fluid terciary-bg-color d-flex flex-column align-items-center"
+>
+  <form id="order-form" (ngSubmit)="onSubmit(orderForm)" #orderForm="ngForm">
+    <div class="row w-100 mb-5 mt-5">
+      <div
+        class="col flex-column align-items-center d-flex justify-content-center"
+      >
+        <img id="logo" alt="logo" src="./assets/img/Logo.webp" />
+        <p class="lead mt-2">Tienda > Carrito > Pedido</p>
+      </div>
+    </div>
+    <div
+      class="container h-100 d-flex justify-content-center align-items-center"
+    >
+      <div class="row w-100 h-75">
+        <div
+          class="col h-100 d-flex justify-content-center flex-column align-items-center border shadow rounded m-3 p-5"
+        >
+          <h3 class="align-self-start mb-5">Información de pago</h3>
+          <div class="mb-3 w-100">
+            <label for="input-rut" class="form-label">Ingrese su rut</label>
+            <input
+              type="text"
+              name="rut"
+              class="form-control"
+              id="input-rut"
+              [(ngModel)]="user.rut"
+              required
+              minlength="9"
+            />
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="mb-3 w-100">
+                <label for="input-name" class="form-label">Nombre</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control"
+                  id="input-name"
+                  [(ngModel)]="user.name"
+                  required
+                  minlength="3"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3 w-100">
+                <label for="input-apellido" class="form-label">Apellido</label>
+                <input
+                  type="text"
+                  name="last_name"
+                  class="form-control"
+                  id="input-apellido"
+                  [(ngModel)]="user.last_name"
+                  required
+                  minlength="3"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="mb-3 w-100">
+            <label for="select-region" class="form-label">Región</label>
+            <select
+              name="region"
+              id="select-region"
+              class="form-select"
+              [(ngModel)]="user.region"
+              required
+            >
+              <option disabled selected value="">Selecciona una opción</option>
+              <option value="Valdivia">Los Ríos</option>
+              <option value="Santiago">Metropolitana</option>
+              <option value="Concepción">Biobío</option>
+            </select>
+          </div>
+          <div class="mb-3 w-100">
+            <label for="select-country" class="form-label">Ciudad</label>
+            <select
+              name="city"
+              id="select-country"
+              class="form-select"
+              [(ngModel)]="user.city"
+              required
+            >
+              <option disabled selected value="">Selecciona una opción</option>
+              <option value="Valdivia">Valdivia</option>
+              <option value="Santiago">Santiago</option>
+              <option value="Concepción">Concepción</option>
+            </select>
+          </div>
+          <div class="mb-3 w-100">
+            <label for="input-address" class="form-label">Dirección</label>
+            <input
+              type="text"
+              name="address"
+              class="form-control"
+              id="input-address"
+              [(ngModel)]="user.address"
+              required
+              minlength="10"
+            />
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="mb-3 w-100">
+                <label for="input-phone" class="form-label">Teléfono</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  class="form-control"
+                  id="input-phone"
+                  [(ngModel)]="user.phone"
+                  required
+                  pattern="^\d+$"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3 w-100">
+                <label for="input-email" class="form-label"
+                  >Correo electrónico</label
+                >
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  id="input-email"
+                  [(ngModel)]="user.email"
+                  required
+                  email
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col h-100 border shadow rounded m-3 p-5 d-flex flex-column justify-content-center align-items-center"
+        >
+          <h3 class="align-self-start mb-5">Tu compra</h3>
+          <div id="pedido-info-cart">
+            <div *ngFor="let item of cart" class="cart-item border">
+              <img [src]="item.image" alt="Imagen de {{ item.name }}" />
+              <div
+                class="item-detail p-2 d-flex flex-column justify-content-center align-items-center text-center"
+              >
+                <span><strong>Nombre:</strong> {{ item.name }}</span>
+                <span><strong>Autor:</strong> {{ item.author }}</span>
+                <span><strong>Precio:</strong> {{ item.price }}</span>
+                <span><strong>Cantidad:</strong> {{ item.cantidad }}</span>
+              </div>
+              <div class="d-flex justify-content-center align-items-center p-2">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm"
+                  (click)="removeFromCart(item.id)"
+                >
+                  &times;
+                </button>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col d-flex justify-content-center">
+                <h3 class="lead">Total: ${{ total }}</h3>
+              </div>
+            </div>
+            <div class="row">
+              <p class="lead">Envio</p>
+              <div class="col">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="check-envio"
+                    id="check-envio-1"
+                  />
+                  <label class="form-check-label" for="check-envio-1">
+                    Retiro en tienda
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="check-envio"
+                    id="check-envio-2"
+                    checked
+                  />
+                  <label class="form-check-label" for="check-envio-2">
+                    Despacho a domicilio
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <p class="lead">Medio de pago</p>
+              <div class="col">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="medio-pago"
+                    id="check-pago-1"
+                  />
+                  <label class="form-check-label" for="check-pago-1">
+                    WebPay
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="medio-pago"
+                    id="check-pago-2"
+                  />
+                  <label class="form-check-label" for="check-pago-2">
+                    Mercado pago
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="medio-pago"
+                    id="check-pago-3"
+                    checked
+                  />
+                  <label class="form-check-label" for="check-pago-3">
+                    Tarjeta de crédito, débito, prepago
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">
+                  Finalizar pedido
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
