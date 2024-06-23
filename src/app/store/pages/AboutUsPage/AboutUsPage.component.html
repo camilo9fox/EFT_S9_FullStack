@@ -1,0 +1,66 @@
+<app-navbar></app-navbar>
+<div class="container-fluid secondary-bg-color p-5">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+      <h1>Nosotros</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid container-portada shadow rounded">
+  <div class="row">
+    <div
+      class="col-md-12 col-lg-6 terciary-bg-color flex-column d-flex justify-content-center align-items-center p-5"
+    >
+      <h2 class="m-5">¿Quienes somos?</h2>
+      <p class="lead">
+        En Pepe Librería, nos apasiona el maravilloso mundo de los libros y el
+        poder que tienen para transformar vidas. Somos una librería
+        independiente con un toque único, inspirada por la icónica figura de
+        Pepe the Frog. Nuestra misión es crear un espacio acogedor y vibrante
+        donde los amantes de la lectura de todas las edades y gustos puedan
+        encontrar sus próximas grandes historias.
+        <br />
+        Pepe Librería nació de la visión de un grupo de amigos apasionados por
+        la literatura y el humor. Queríamos crear un lugar que no solo ofreciera
+        una amplia selección de libros, sino que también fuera un refugio
+        cultural donde la comunidad pudiera reunirse, aprender y compartir su
+        amor por los libros. Así, combinamos la accesibilidad de una tienda de
+        barrio con la diversidad y la riqueza de una gran librería.
+      </p>
+    </div>
+    <div
+      class="col-md-12 col-lg-6 d-flex justify-content-around align-items-center"
+    >
+      <img alt="equipo" src="./assets/img/nosotros/Equipo.webp" />
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid container-mvv mt-5">
+  <div
+    class="row m-5 shadow rounded"
+    *ngFor="let section of sections; let i = index"
+  >
+    <div class="col d-flex justify-content-center align-items-center">
+      <div class="row">
+        <div
+          class="col d-flex justify-content-center align-items-center"
+          [ngClass]="{ 'order-md-1': i % 2 === 0, 'order-md-2': i % 2 !== 0 }"
+        >
+          <img [src]="section.image" [alt]="section.alt" />
+        </div>
+        <div
+          class="col"
+          [ngClass]="{ 'order-md-2': i % 2 === 0, 'order-md-1': i % 2 !== 0 }"
+        >
+          <p class="lead m-5" [innerHTML]="section.text"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-cart></app-cart>
+
+<app-footer></app-footer>
