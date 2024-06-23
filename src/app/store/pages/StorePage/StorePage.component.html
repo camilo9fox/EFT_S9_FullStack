@@ -1,0 +1,91 @@
+<app-navbar></app-navbar>
+
+<app-alert
+  alertMsg="No se encontraton coincidencias"
+  alertType="danger"
+  *ngIf="filteredProducts.length === 0"
+></app-alert>
+
+<div id="store-panel" class="container-fluid p-5 border rounded shadow">
+  <h1 class="mb-5">Encuentra todos los libros que buscas</h1>
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div id="filter-panel" class="border shadow rounded p-5">
+        <p class="lead mb-4"><strong>Filtros</strong></p>
+        <div class="mb-2">
+          <label for="name" class="form-label">Nombre libro</label>
+          <input
+            type="text"
+            name="name"
+            class="form-control"
+            id="input-name"
+            [(ngModel)]="filters.name"
+          />
+        </div>
+        <div class="mb-2">
+          <label for="autor" class="form-label">Autor</label>
+          <input
+            type="text"
+            name="autor"
+            class="form-control"
+            id="input-autor"
+            [(ngModel)]="filters.author"
+          />
+        </div>
+        <div>
+          <label for="categoria" class="form-label">Categoría</label>
+          <select
+            name="categoria"
+            id="select-categoria"
+            class="form-select"
+            [(ngModel)]="filters.category"
+          >
+            <option selected value="">Todas</option>
+            <option value="Social politico">Social politico</option>
+            <option value="Infantil">Infantil</option>
+            <option value="Literatura">Literatura</option>
+          </select>
+        </div>
+        <button class="btn btn-primary mt-4" (click)="filterProduct()">
+          Filtrar
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-9">
+      <div id="product-list" class="row d-flex justify-content-center">
+        <div
+          *ngFor="let product of filteredProducts"
+          class="card mb-4 col-sm-12 col-md-12 col-lg-3 m-3"
+        >
+          <img
+            class="card-img-top"
+            [src]="product.image"
+            [alt]="product.name"
+          />
+          <div class="card-body">
+            <h4 class="card-title">{{ product.name }}</h4>
+            <h5 class="card-title">{{ product.author }}</h5>
+            <p class="card-text primary-color lead">
+              <strong>{{ product.price }}</strong>
+            </p>
+            <p class="card-text">
+              {{
+                product.stock === 0 ? "Sin stock" : "Stock: " + product.stock
+              }}
+            </p>
+            <button
+              [disabled]="product.stock === 0"
+              class="btn btn-primary add-to-cart"
+              (click)="addProduct(product)"
+            >
+              Añadir al carrito
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-cart></app-cart>
+<app-footer></app-footer>
