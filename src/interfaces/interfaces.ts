@@ -9,3 +9,12 @@ export interface Product {
   image: string;
   cantidad?: number;
 }
+
+export interface User {
+  email: string;
+  password: string;
+  type: 'admin' | 'customer';
+  name: string;
+  lastName: string;
+  address: string;
+}
