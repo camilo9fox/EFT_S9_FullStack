@@ -8,6 +8,8 @@ import { RecoveryPasswordPageComponent } from './login/pages/RecoveryPasswordPag
 import { AuthGuard } from './login/guards/Auth.guard';
 import { MyProfilePageComponent } from './store/pages/MyProfilePage/MyProfilePage.component';
 import { OrderComponent } from './store/pages/Order/Order.component';
+import { AdminPanelComponent } from './store/pages/AdminPanel/AdminPanel.component';
+import { AdminGuard } from './login/guards/Admin.guard';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -17,6 +19,11 @@ export const routes: Routes = [
   { path: 'registro', component: RegisterPageComponent },
   { path: 'recuperar-contraseña', component: RecoveryPasswordPageComponent },
   { path: 'pedido', component: OrderComponent },
+  {
+    path: 'panel',
+    component: AdminPanelComponent,
+    canActivate: [AuthGuard, AdminGuard],
+  },
   {
     path: 'mi-perfil',
     component: MyProfilePageComponent,
