@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CartService } from '../../../store/services/CartService.service';
 import { SessionService } from '../../../login/services/session.service';
 import { ModalComponent } from '../Modal/Modal.component';
@@ -32,6 +27,7 @@ export class NavbarComponent implements OnInit {
   cartItemCount = 0;
   isLogged: boolean = false;
   isModalOpen: boolean = false;
+  isLoggedUserAdmin: boolean = false;
 
   constructor(
     private cartService: CartService,
@@ -41,6 +37,8 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getStatusLogin();
+    this.getUserType();
     this.cartService.cartItemCount$.subscribe((count) => {
       this.cartItemCount = count;
       this.cdr.markForCheck();
@@ -49,7 +47,10 @@ export class NavbarComponent implements OnInit {
       this.isLogged = isLogged;
       this.cdr.markForCheck();
     });
-    this.getStatusLogin();
+    this.sessionService.isAdmin$.subscribe((isAdmin) => {
+      this.isLoggedUserAdmin = isAdmin;
+      this.cdr.markForCheck();
+    });
   }
 
   openCart(): void {
@@ -58,6 +59,10 @@ export class NavbarComponent implements OnInit {
 
   getStatusLogin() {
     this.sessionService.getStatusLogin();
+  }
+
+  getUserType() {
+    this.sessionService.getUserType();
   }
 
   onCloseSession() {

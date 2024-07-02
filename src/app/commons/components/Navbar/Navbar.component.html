@@ -49,6 +49,20 @@
             Mi Perfil
           </a>
         </li>
+        <li
+          id="my-profile-item"
+          class="nav-item"
+          [classList]="(!isLoggedUserAdmin || !isLogged) && 'invisible'"
+        >
+          <a
+            id="anchor-my-profile"
+            class="nav-link active"
+            aria-current="page"
+            href="panel"
+          >
+            Panel
+          </a>
+        </li>
       </ul>
     </div>
     <form class="d-flex justify-content-center">
