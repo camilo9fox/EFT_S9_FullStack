@@ -10,6 +10,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ModalComponent } from '../../../commons/components/Modal/Modal.component';
+import { UsersService } from '../../services/users.service';
+import { HttpClientModule } from '@angular/common/http';
+import { User } from '../../../../interfaces/interfaces';
 
 /**
  * @description
@@ -27,13 +30,20 @@ import { ModalComponent } from '../../../commons/components/Modal/Modal.componen
   standalone: true,
   templateUrl: './RegisterPage.component.html',
   styleUrl: './RegisterPage.component.scss',
-  imports: [CommonModule, ReactiveFormsModule, ModalComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ModalComponent,
+    HttpClientModule,
+  ],
+  providers: [UsersService],
 })
 export class RegisterPageComponent implements OnInit {
   registerForm: FormGroup;
   isModalOpen = false;
+  users: User[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private usersService: UsersService) {
     this.registerForm = this.fb.group(
       {
         name: ['', [Validators.required, Validators.minLength(3)]],
@@ -62,7 +72,12 @@ export class RegisterPageComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.usersService.getUsersData().subscribe((data) => {
+      this.users = data;
+      console.log({ data });
+    });
+  }
 
   openModal() {
     this.isModalOpen = true;
@@ -107,10 +122,7 @@ export class RegisterPageComponent implements OnInit {
     if (!emailRegex.test(value)) {
       return { emailInvalid: true };
     }
-    const registeredUsers = JSON.parse(
-      localStorage.getItem('registered-users') || '[]'
-    );
-    if (registeredUsers.map((user: any) => user.email).includes(value)) {
+    if (this.users.map((user: any) => user.email).includes(value)) {
       return { emailTaken: true };
     }
     return null;
@@ -126,11 +138,8 @@ export class RegisterPageComponent implements OnInit {
   onSubmit(): void {
     if (this.registerForm.valid) {
       const user = this.registerForm.value;
-      const registeredUsers = JSON.parse(
-        localStorage.getItem('registered-users') ?? '[]'
-      );
-      registeredUsers.push({ ...user, type: 'customer' });
-      localStorage.setItem('registered-users', JSON.stringify(registeredUsers));
+      this.users.push({ ...user, type: 'customer' });
+      this.usersService.updateUsersJson(this.users);
       this.cleanFormFields();
       this.openModal();
     }
