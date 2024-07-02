@@ -18,7 +18,7 @@ import { Product } from '../../../../interfaces/interfaces';
   templateUrl: 'Cart.component.html',
   styleUrl: 'Cart.component.scss',
 })
-export class NameComponent implements OnInit {
+export class CartComponent implements OnInit {
   cart: Product[] = [];
   total = 0;
   isOpen = false;
