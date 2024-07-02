@@ -7,8 +7,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SessionService {
   private isLogged = new BehaviorSubject<boolean>(false);
+  private isAdmin = new BehaviorSubject<boolean>(false);
 
   isLogged$ = this.isLogged.asObservable();
+  isAdmin$ = this.isAdmin.asObservable();
   constructor() {}
 
   private isBrowser(): boolean {
@@ -36,6 +38,30 @@ export class SessionService {
   isLoggedIn() {
     if (this.isBrowser()) {
       return localStorage.getItem('actual_user');
+    }
+    return false;
+  }
+
+  getUserType() {
+    if (this.isBrowser()) {
+      if (localStorage.getItem('actual_user')) {
+        const loggedUser = JSON.parse(
+          localStorage.getItem('actual_user') ?? ''
+        );
+        this.isAdmin.next(loggedUser?.type === 'admin');
+      }
+    }
+    return false;
+  }
+
+  isUserAdmin() {
+    if (this.isBrowser()) {
+      if (localStorage.getItem('actual_user')) {
+        const loggedUser = JSON.parse(
+          localStorage.getItem('actual_user') ?? ''
+        );
+        return loggedUser?.type === 'admin';
+      }
     }
     return false;
   }
