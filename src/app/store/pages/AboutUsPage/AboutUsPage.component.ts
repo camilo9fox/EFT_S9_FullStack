@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FooterComponent } from '../../../commons/components/Footer/Footer.component';
-import { NameComponent } from '../../components/Cart/Cart.component';
+import { CartComponent } from '../../components/Cart/Cart.component';
 import { NavbarComponent } from '../../../commons/components/Navbar/Navbar.component';
 
 /**
@@ -18,7 +18,7 @@ import { NavbarComponent } from '../../../commons/components/Navbar/Navbar.compo
   standalone: true,
   templateUrl: './AboutUsPage.component.html',
   styleUrl: './AboutUsPage.component.scss',
-  imports: [CommonModule, FooterComponent, NameComponent, NavbarComponent],
+  imports: [CommonModule, FooterComponent, CartComponent, NavbarComponent],
 })
 export class AboutUsPageComponent {
   sections = [

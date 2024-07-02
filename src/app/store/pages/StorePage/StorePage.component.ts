@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FooterComponent } from '../../../commons/components/Footer/Footer.component';
-import { NameComponent } from '../../components/Cart/Cart.component';
+import { CartComponent } from '../../components/Cart/Cart.component';
 import { NavbarComponent } from '../../../commons/components/Navbar/Navbar.component';
 import { CartService } from '../../services/CartService.service';
 import { Product } from '../../../../interfaces/interfaces';
@@ -29,7 +29,7 @@ import { AlertComponent } from '../../../commons/components/Alert/Alert.componen
   imports: [
     CommonModule,
     FooterComponent,
-    NameComponent,
+    CartComponent,
     NavbarComponent,
     FormsModule,
     AlertComponent,

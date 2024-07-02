@@ -12,7 +12,7 @@ import { NavbarComponent } from '../../../commons/components/Navbar/Navbar.compo
 import { CarrouselComponent } from '../../components/Carrousel/Carrousel.component';
 import { CategoryListComponent } from '../../components/Category-list/Category-list.component';
 import { FooterComponent } from '../../../commons/components/Footer/Footer.component';
-import { NameComponent } from '../../components/Cart/Cart.component';
+import { CartComponent } from '../../components/Cart/Cart.component';
 import { ModalComponent } from '../../../commons/components/Modal/Modal.component';
 import { SessionService } from '../../../login/services/session.service';
 
@@ -37,7 +37,7 @@ import { SessionService } from '../../../login/services/session.service';
     CarrouselComponent,
     CategoryListComponent,
     FooterComponent,
-    NameComponent,
+    CartComponent,
     ModalComponent,
   ],
 })
