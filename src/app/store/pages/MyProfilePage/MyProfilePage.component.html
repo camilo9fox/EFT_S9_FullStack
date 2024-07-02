@@ -21,7 +21,7 @@
                 name="name"
                 class="form-control"
                 id="input-name"
-                [(ngModel)]="user.name"
+                [(ngModel)]="loggedUser.name"
                 required
                 minlength="3"
               />
@@ -33,7 +33,7 @@
                 name="last_name"
                 class="form-control"
                 id="input-last-name"
-                [(ngModel)]="user.lastName"
+                [(ngModel)]="loggedUser.lastName"
                 required
                 minlength="3"
               />
@@ -45,7 +45,7 @@
                 name="address"
                 class="form-control"
                 id="input-address"
-                [(ngModel)]="user.address"
+                [(ngModel)]="loggedUser.address"
                 required
                 minlength="10"
               />

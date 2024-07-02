@@ -2,8 +2,11 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from '../../../commons/components/Footer/Footer.component';
-import { NameComponent } from '../../components/Cart/Cart.component';
+import { CartComponent } from '../../components/Cart/Cart.component';
 import { NavbarComponent } from '../../../commons/components/Navbar/Navbar.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UsersService } from '../../../login/services/users.service';
+import { User } from '../../../../interfaces/interfaces';
 
 /**
  * @description
@@ -22,56 +25,69 @@ import { NavbarComponent } from '../../../commons/components/Navbar/Navbar.compo
   imports: [
     CommonModule,
     FooterComponent,
-    NameComponent,
+    CartComponent,
     NavbarComponent,
     FormsModule,
+    HttpClientModule,
   ],
+  providers: [UsersService],
 })
 export class MyProfilePageComponent implements OnInit {
-  user = {
+  loggedUser = {
     name: '',
     lastName: '',
     address: '',
   };
+  users: User[] = [];
+
+  constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
-    this.loadUserData();
+    this.usersService.getUsersData().subscribe((data) => {
+      this.users = data;
+      console.log({ data });
+    });
+    this.loadLoggedUserData();
   }
 
   private isBrowser(): boolean {
     return typeof window !== 'undefined';
   }
 
-  loadUserData(): void {
+  loadLoggedUserData(): void {
     if (this.isBrowser()) {
       const actualUser = localStorage.getItem('actual_user');
       if (actualUser) {
-        this.user = JSON.parse(actualUser);
+        const emailLoggedUser = JSON.parse(actualUser).email;
+        const findedUser = this.users.find(
+          (user: User) => user.email === emailLoggedUser
+        )!;
+        this.loggedUser = findedUser;
       }
+    }
+  }
+
+  updateLoggedUserData(user: User) {
+    if (this.isBrowser()) {
+      localStorage.getItem(JSON.stringify(user));
     }
   }
 
   handleChangeDataProfile(data: any): void {
     if (this.isBrowser()) {
       let actualUser = JSON.parse(localStorage.getItem('actual_user') ?? '{}');
-      let registeredUsers = localStorage.getItem('registered-users')
-        ? JSON.parse(localStorage.getItem('registered-users') ?? '[]')
-        : [];
 
-      actualUser.name = data.name;
-      actualUser.lastName = data.lastName;
-      actualUser.address = data.address;
-      localStorage.setItem('actual_user', JSON.stringify(actualUser));
-
-      registeredUsers = registeredUsers.map((user: any) => {
+      this.users.map((user: any) => {
         if (user.email === actualUser.email) {
           user.name = data.name;
           user.lastName = data.lastName;
           user.address = data.address;
+          this.updateLoggedUserData(user);
         }
         return user;
       });
-      localStorage.setItem('registered-users', JSON.stringify(registeredUsers));
+
+      this.usersService.updateUsersJson(this.users);
     }
   }
 
@@ -105,8 +121,8 @@ export class MyProfilePageComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.validateData(this.user)) {
-      this.handleChangeDataProfile(this.user);
+    if (this.validateData(this.loggedUser)) {
+      this.handleChangeDataProfile(this.loggedUser);
       alert('Perfil modificado con éxito');
     }
   }
