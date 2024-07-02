@@ -8,6 +8,9 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalComponent } from '../../../commons/components/Modal/Modal.component';
+import { UsersService } from '../../services/users.service';
+import { HttpClientModule } from '@angular/common/http';
+import { User } from '../../../../interfaces/interfaces';
 
 /**
  * @description
@@ -25,31 +28,24 @@ import { ModalComponent } from '../../../commons/components/Modal/Modal.componen
   standalone: true,
   templateUrl: './LoginPage.component.html',
   styleUrl: './LoginPage.component.scss',
-  imports: [CommonModule, ReactiveFormsModule, ModalComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ModalComponent,
+    HttpClientModule,
+  ],
+  providers: [UsersService],
 })
 export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
   isOpenModal: boolean = false;
-  users = [
-    {
-      email: 'camiloacunacz@gmail.com',
-      password: '123',
-      type: 'admin',
-      name: 'Camilo',
-      lastName: 'Acuña',
-      address: 'Providencia 123, Santiago, RM',
-    },
-    {
-      email: 'camil.acunac@duocuc.cl',
-      password: '321',
-      type: 'customer',
-      name: 'Pepe',
-      lastName: 'The Frog',
-      address: 'Arauco 24, Valdivia, Los Rios',
-    },
-  ];
+  users: User[] = [];
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private usersService: UsersService
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -57,22 +53,14 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadRegisteredUsers();
+    this.usersService.getUsersData().subscribe((data) => {
+      this.users = data;
+      console.log({ data });
+    });
   }
 
   private isBrowser(): boolean {
     return typeof window !== 'undefined';
-  }
-
-  loadRegisteredUsers(): void {
-    if (this.isBrowser()) {
-      const registeredUsers = localStorage.getItem('registered-users');
-      if (registeredUsers) {
-        JSON.parse(registeredUsers).forEach((user: any) => {
-          this.users.push(user);
-        });
-      }
-    }
   }
 
   onSubmit(): void {
