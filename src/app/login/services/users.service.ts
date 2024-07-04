@@ -7,17 +7,14 @@ import { User } from '../../../interfaces/interfaces';
   providedIn: 'root',
 })
 export class UsersService {
-  httpOptionsNoCache = {
+  httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer b5d38fc8-966c-4a0c-81dc-63214356e174',
-      'Cache-Control': 'no-cache',
-      Pragma: 'no-cache',
     }),
   };
 
-  private jsonUrl =
-    'https://firebasestorage.googleapis.com/v0/b/exp3-s8-json.appspot.com/o/users.json?alt=media&token=b5d38fc8-966c-4a0c-81dc-63214356e174';
+  private jsonUrl = `https://firebasestorage.googleapis.com/v0/b/exp3-s8-json.appspot.com/o/users.json?alt=media&token=b5d38fc8-966c-4a0c-81dc-63214356e174?timestamp=${new Date().getTime()}`;
 
   constructor(private http: HttpClient) {}
 
@@ -26,13 +23,7 @@ export class UsersService {
   }
 
   updateUsersJson(users: User[]) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer b5d38fc8-966c-4a0c-81dc-63214356e174',
-      }),
-    };
-    this.http.post(this.jsonUrl, users, httpOptions).subscribe(
+    this.http.post(this.jsonUrl, users, this.httpOptions).subscribe(
       (response) => {
         console.log({ response });
       },
