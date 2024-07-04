@@ -11,8 +11,6 @@ export class UsersService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer b5d38fc8-966c-4a0c-81dc-63214356e174',
-      'Cache-Control': 'no-cache',
-      Pragma: 'no-cache',
     }),
   };
 
