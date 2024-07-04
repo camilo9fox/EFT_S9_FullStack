@@ -46,8 +46,8 @@ export class MyProfilePageComponent implements OnInit {
     this.usersService.getUsersData().subscribe((data) => {
       this.users = data;
       console.log({ data });
+      this.loadLoggedUserData();
     });
-    this.loadLoggedUserData();
   }
 
   private isBrowser(): boolean {
@@ -69,7 +69,7 @@ export class MyProfilePageComponent implements OnInit {
 
   updateLoggedUserData(user: User) {
     if (this.isBrowser()) {
-      localStorage.getItem(JSON.stringify(user));
+      localStorage.setItem('actual_user', JSON.stringify(user));
     }
   }
 
