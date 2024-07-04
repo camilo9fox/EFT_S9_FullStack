@@ -14,7 +14,7 @@ export class UsersService {
     }),
   };
 
-  private jsonUrl = `https://firebasestorage.googleapis.com/v0/b/exp3-s8-json.appspot.com/o/users.json?alt=media&token=b5d38fc8-966c-4a0c-81dc-63214356e174`;
+  private jsonUrl = `https://firebasestorage.googleapis.com/v0/b/exp3-s8-json.appspot.com/o/users.json?alt=media&token=b5d38fc8-966c-4a0c-81dc-63214356e174?timestamp=${new Date().getTime()}`;
 
   constructor(private http: HttpClient) {}
 
