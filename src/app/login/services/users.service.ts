@@ -7,10 +7,12 @@ import { User } from '../../../interfaces/interfaces';
   providedIn: 'root',
 })
 export class UsersService {
-  httpOptions = {
+  httpOptionsNoCache = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer b5d38fc8-966c-4a0c-81dc-63214356e174',
+      'Cache-Control': 'no-cache',
+      Pragma: 'no-cache',
     }),
   };
 
@@ -24,7 +26,13 @@ export class UsersService {
   }
 
   updateUsersJson(users: User[]) {
-    this.http.post(this.jsonUrl, users, this.httpOptions).subscribe(
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer b5d38fc8-966c-4a0c-81dc-63214356e174',
+      }),
+    };
+    this.http.post(this.jsonUrl, users, httpOptions).subscribe(
       (response) => {
         console.log({ response });
       },
